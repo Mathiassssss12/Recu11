@@ -1,45 +1,40 @@
 #include <stdio.h>
 #include "funcion.h"
 
-int main (int argc, char *argv[]) {
-    struct Equipo equipos[4];
-    struct Partido partido;
+int main() {
+    Equipo equipos[NUM_EQUIPOS];
+    Partido partidos[MAX_PARTIDOS];
+    int numPartidos = 0;
     int opcion;
 
-    // Cargar equipos desde archivo
-    cargarEquipos(equipos);
+    inicializarEquipos(equipos);
 
     do {
-        printf("\n-----------------------------------\n");
-        printf("SISTEMA DE GESTION DE LIGAPRO\n");
-        printf("1. Registrar resultado de un partido\n");
-        printf("2. Mostrar tabla de posiciones\n");
-        printf("3. Mostrar estadísticas de un equipo\n");
-        printf("4. Guardar equipos y salir\n");
-        printf("Seleccione una opción: ");
+        printf("\n--- LIGAPRO SERIE A 2025 ---\n");
+        printf("1. Ingresar resultado de partido\n");
+        printf("2. Ver tabla de posiciones\n");
+        printf("3. Ver historial de partidos jugados\n");
+        printf("4. Salir\n");
+        printf("Seleccione una opcion: ");
         scanf("%d", &opcion);
-        getchar(); // Limpiar el buffer de entrada
 
-        switch (opcion) {
+        switch(opcion) {
             case 1:
-                registrarPartido(&partido, equipos);
+                registrarPartido(equipos, partidos, &numPartidos);
                 break;
             case 2:
-                mostrarTabla(equipos);
+                mostrarTablaPosiciones(equipos);
                 break;
             case 3:
-                mostrarEstadisticasEquipo(equipos);
+                mostrarHistorialPartidos(partidos, numPartidos);
                 break;
             case 4:
-                guardarEquipos(equipos);
-                printf("Datos guardados. Saliendo del programa...\n");
+                printf("Programa finalizado.\n");
                 break;
             default:
-                printf("Opción no válida. Intente de nuevo.\n");
+                printf("Opcion invalida.\n");
         }
     } while (opcion != 4);
 
     return 0;
 }
-
-

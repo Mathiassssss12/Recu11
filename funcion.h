@@ -1,36 +1,27 @@
 #ifndef FUNCION_H
 #define FUNCION_H
 
-// Estructura para representar un equipo
-struct Equipo {
-    char nombre[30];
+#define NUM_EQUIPOS 16
+#define MAX_PARTIDOS 240
+
+typedef struct {
+    char nombre[32];
     int partidosJugados;
-    int partidosGanados;
-    int partidosEmpatados;
-    int partidosPerdidos;
-    int golesAFavor;
-    int golesEnContra;
+    int ganados, empatados, perdidos;
+    int golesFavor, golesContra;
     int puntos;
-};
+} Equipo;
 
-// Estructura para representar un partido
-struct Partido {
-    char equipoLocal[30];
-    char equipoVisitante[30];
-    int golesLocal;
-    int golesVisitante;
-};
+typedef struct {
+    char local[32], visitante[32];
+    int golesLocal, golesVisitante;
+} Partido;
 
-// Declaraciones de funciones
-void leerCadena(char *cadena, int num);
-void registrarPartido(struct Partido *partido, struct Equipo equipos[4]);
-void actualizarEstadisticas(struct Partido *partido, struct Equipo equipos[4]);
-struct Equipo *buscarEquipo(struct Equipo equipos[4], int numEquipos, char *nombre);
-void mostrarTabla(struct Equipo equipos[4]);
-void mostrarEstadisticasEquipo(struct Equipo equipos[4]);
+// Prototipos de funciones
+void inicializarEquipos(Equipo equipos[NUM_EQUIPOS]);
+int buscarEquipo(const Equipo equipos[], const char *nombre);
+void registrarPartido(Equipo equipos[NUM_EQUIPOS], Partido partidos[], int *numPartidos);
+void mostrarTablaPosiciones(Equipo equipos[NUM_EQUIPOS]);
+void mostrarHistorialPartidos(const Partido partidos[], int numPartidos);
 
-// Funciones para manejo de archivos
-void guardarEquipos(struct Equipo equipos[4]);
-void cargarEquipos(struct Equipo equipos[4]);
-
-#endif // FUNCION_H
+#endif
